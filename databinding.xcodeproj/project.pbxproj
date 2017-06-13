@@ -173,12 +173,12 @@
 				C036099C1EF0383100226EA5 /* ViewControllers */,
 				C04A05FB1EF035DD000EC3A2 /* Views */,
 				C04A05FA1EF035C0000EC3A2 /* ViewModels */,
+				C04A05F81EF0354B000EC3A2 /* Binding.swift */,
 				C05CA9F11EEECBF4005EDECC /* AppDelegate.swift */,
 				C05CA9F51EEECBF4005EDECC /* Main.storyboard */,
 				C05CA9F81EEECBF4005EDECC /* Assets.xcassets */,
 				C05CA9FA1EEECBF4005EDECC /* LaunchScreen.storyboard */,
 				C05CA9FD1EEECBF4005EDECC /* Info.plist */,
-				C04A05F81EF0354B000EC3A2 /* Binding.swift */,
 			);
 			path = databinding;
 			sourceTree = "<group>";
