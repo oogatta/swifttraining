@@ -8,7 +8,7 @@
 
 import RxSwift
 
-class HogeViewModel {
+class OogattaViewModel {
     let name = Variable("Naohiro Oogata")
     let address = Variable("Shibuya-ku Ebisu-Nishi")
     let actionName = Variable("Finish")
