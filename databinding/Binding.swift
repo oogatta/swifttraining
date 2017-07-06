@@ -10,26 +10,34 @@ import RxSwift
 import RxCocoa
 
 class Binding {
+    let bindee: Bindee
     let observable: Variable<String>
 
-    init(_ observable: Variable<String>) {
+    init(_ bindee: Bindee,  _ observable: Variable<String>) {
+        self.bindee = bindee
         self.observable = observable
     }
 
-    func observer<T>(_ view: T) -> UIBindingObserver<T, String?> {
-        return UIBindingObserver(UIElement: view) { _, _ in }
+    func observer<T: UIView>() -> UIBindingObserver<T, String?> {
+        return UIBindingObserver(UIElement: bindee as! T) { _, _ in }
     }
 }
 
+protocol Bindee {
+
+}
+
+extension UIView: Bindee {}
+
 class LabelBinding: Binding {
-    override func observer<T: UILabel>(_ view: T) -> UIBindingObserver<T, String?> {
-        return view.rx.text
+    override func observer<T: UILabel>() -> UIBindingObserver<T, String?> {
+        return (bindee as! T).rx.text
     }
 }
 
 class ButtonBinding: Binding {
-    override func observer<T: UIButton>(_ view: T) -> UIBindingObserver<T, String?> {
-        return view.rx.title()
+    override func observer<T: UIButton>() -> UIBindingObserver<T, String?> {
+        return (bindee as! T).rx.title()
     }
 }
 

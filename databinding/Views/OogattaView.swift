@@ -13,11 +13,15 @@ import RxCocoa
 class OogattaView: UIBindingView {
     let viewModel = OogattaViewModel()
 
-    override func tags() -> [Int: Binding] {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var actionButton: UIButton!
+
+    override func bindings() -> [Binding] {
         return [
-            1: LabelBinding(viewModel.name),
-            2: LabelBinding(viewModel.address),
-            3: ButtonBinding(viewModel.actionName),
+            LabelBinding(nameLabel, viewModel.name),
+            LabelBinding(addressLabel, viewModel.address),
+            ButtonBinding(actionButton, viewModel.actionName)
         ]
     }
 }

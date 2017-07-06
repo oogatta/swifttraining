@@ -13,13 +13,15 @@ import RxCocoa
 class UIBindingView: UIView {
     private let disposeBag = DisposeBag()
 
-    func tags() -> [Int: Binding] {
-        return [:]
+    func bindings() -> [Binding] {
+        return []
     }
 
-    override func didAddSubview(_ subview: UIView) {
-        if let binding = tags()[subview.tag] {
-            binding.observable.asObservable().bind(to: binding.observer(subview)).disposed(by: disposeBag)
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        bindings().forEach { binding in
+            binding.observable.asObservable().bind(to: binding.observer()).disposed(by: disposeBag)
         }
     }
 }
