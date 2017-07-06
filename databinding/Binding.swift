@@ -42,6 +42,10 @@ class LabelBinding: Binding {
 }
 
 class ButtonBinding: Binding {
+    override init(_ bindee: Bindee, _ observable: Variable<String>) {
+        super.init(bindee, observable)
+    }
+
     init(_ bindee: Bindee, title observableGetter: () -> Variable<String>, click clickHandler: @escaping () -> Void) {
         super.init(bindee, observableGetter())
 
