@@ -22,6 +22,10 @@ class UIBindingView: UIView {
         
         bindings().forEach { binding in
             binding.observable.asObservable().bind(to: binding.observer()).disposed(by: disposeBag)
+
+            binding.events.forEach { rxEvent in
+                rxEvent.event.bind(onNext: rxEvent.handler).disposed(by: disposeBag)
+            }
         }
     }
 }

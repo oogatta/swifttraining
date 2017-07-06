@@ -19,9 +19,9 @@ class OogattaView: UIBindingView {
 
     override func bindings() -> [Binding] {
         return [
-            LabelBinding(nameLabel, viewModel.name),
+            LabelBinding(nameLabel, text: { viewModel.name }),
             LabelBinding(addressLabel, viewModel.address),
-            ButtonBinding(actionButton, viewModel.actionName)
+            ButtonBinding(actionButton, title: { viewModel.actionName }, click: { print("button clicked!") } )
         ]
     }
 }

@@ -10,8 +10,9 @@ import RxSwift
 import RxCocoa
 
 class Binding {
-    let bindee: Bindee
-    let observable: Variable<String>
+    var bindee: Bindee
+    var observable: Variable<String>
+    var events: [RxEvent] = []
 
     init(_ bindee: Bindee,  _ observable: Variable<String>) {
         self.bindee = bindee
@@ -23,21 +24,41 @@ class Binding {
     }
 }
 
-protocol Bindee {
-
-}
-
+protocol Bindee {}
 extension UIView: Bindee {}
 
 class LabelBinding: Binding {
+    override init(_ bindee: Bindee, _ observable: Variable<String>) {
+        super.init(bindee, observable)
+    }
+
+    init(_ bindee: Bindee, text observableGetter: () -> Variable<String>) {
+        super.init(bindee, observableGetter())
+    }
+
     override func observer<T: UILabel>() -> UIBindingObserver<T, String?> {
         return (bindee as! T).rx.text
     }
 }
 
 class ButtonBinding: Binding {
+    init(_ bindee: Bindee, title observableGetter: () -> Variable<String>, click clickHandler: @escaping () -> Void) {
+        super.init(bindee, observableGetter())
+
+        events = [RxEvent(event: (bindee as! UIButton).rx.tap, handler: clickHandler)]
+    }
+
     override func observer<T: UIButton>() -> UIBindingObserver<T, String?> {
         return (bindee as! T).rx.title()
     }
 }
 
+class RxEvent {
+    let event: ControlEvent<Void>
+    let handler: () -> Void
+
+    init(event: ControlEvent<Void>, handler: @escaping () -> Void) {
+        self.event = event
+        self.handler = handler
+    }
+}
